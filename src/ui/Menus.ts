@@ -112,7 +112,13 @@ export class Menus {
         h('div', { class: 'top-bar' }, h('div', { class: 'total-pill' }, icon('star'), String(this.save.totalStars)), h('div', { class: 'menu-row' }, lang, settings)),
         h('div', { class: 'logo' },
           h('div', { class: 'badge-star', html: icon('star').innerHTML }),
-          h('h1', {}, t('game.title')),
+          h('h1', { 'aria-label': t('game.title') }, ...t('game.title').split(' ').map((word, wi) =>
+            h('span', { class: 'word' }, ...[...word].map((ch, ci) => {
+              const el = h('span', { class: `ltr c${(wi * 3 + ci) % 5}` }, ch);
+              el.style.setProperty('--i', String(wi * 8 + ci));
+              return el;
+            })),
+          )),
           h('div', { class: 'subtitle' }, t('game.subtitle')),
         ),
         h('div', { class: 'spacer' }),

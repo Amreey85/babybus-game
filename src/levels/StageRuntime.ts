@@ -164,6 +164,10 @@ export class StageRuntime implements StageController {
     // Hero.
     this.heroRig = buildHero(scene, this.mats, HEROES[ctx.hero], !low);
     this.heroAnim = new RigAnimator(this.heroRig);
+    this.heroAnim.onStep = (run) => {
+      if (this.phase !== 'play' || !this.body.onGround) return;
+      this.particles.burst('dust', new Vector3(this.body.x - this.body.facing * 0.25, this.body.y + 0.05, -0.1), run ? 3 : 1, '#FFFFFF', '#F4DDB0');
+    };
     this.body = createBody(layout.start.x, layout.start.y);
     this.respawnPoint = { ...layout.start };
 
@@ -313,7 +317,7 @@ export class StageRuntime implements StageController {
     this.updateMovers(this.phase === 'play' ? 0 : dt);
     this.updateStars(dt);
     this.updateCharacters(dt);
-    this.env.update(dt, this.time);
+    this.env.update(dt, this.time, this.camX);
     this.updateCamera(dt);
     this.updateLabels();
   }
@@ -445,6 +449,8 @@ export class StageRuntime implements StageController {
         this.ctx.audio.play(s.def.bonus ? 'bonus' : 'star');
         this.particles.burst('sparkle', new Vector3(s.def.x, s.def.y, -0.3), 16, s.def.bonus ? '#7CF4FF' : '#FFE066', '#FFFFFF');
         this.ctx.hud.setStars(this.collected, this.totalStars);
+        const sp = this.project(s.def.x, s.def.y, -0.3);
+        if (sp.visible) this.ctx.hud.flyStar(sp.x, sp.y, !!s.def.bonus);
       }
     }
 

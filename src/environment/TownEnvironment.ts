@@ -33,6 +33,7 @@ import {
 } from '../engine/materials';
 import type { HintDef, LevelLayout, MoverDef, PlatformDef } from '../levels/types';
 import { mergeColored } from '../engine/merge';
+import { LivingWorld } from './LivingWorld';
 
 const Z_FRONT = -3.5;
 const Z_BACK = 4.5;
@@ -59,8 +60,9 @@ export class TownEnvironment {
   private bounceAnim = new Map<string, number>();
   private staticMeshes: Mesh[] = [];
   finishFlag!: Mesh;
+  private life!: LivingWorld;
 
-  constructor(private scene: Scene, private mats: MaterialLibrary, private layout: LevelLayout, private lowQuality: boolean) {
+  constructor(private scene: Scene, private mats: MaterialLibrary, private layout: LevelLayout, private lowQuality: boolean, opts: { welcome?: boolean } = {}) {
     this.buildSky();
     this.buildBackground();
     this.buildPlatforms();
@@ -71,6 +73,7 @@ export class TownEnvironment {
     this.buildFencesLamps();
     this.buildPlayground();
     this.buildHints(layout.hints);
+    this.life = new LivingWorld(scene, mats, layout, lowQuality, opts.welcome ?? true);
     this.buildCheckpoints();
     this.buildFinish();
     this.buildClouds();
@@ -684,18 +687,17 @@ export class TownEnvironment {
       lamp.parent = pole;
       lamp.position.y = 3.3;
       lamp.material = this.mats.color('#9AA5B1');
-      const flag = CreatePlane('cpFlag', { width: 1.2, height: 0.8 }, this.scene);
-      flag.parent = pole;
-      flag.position.set(0.66, 0.9, 0);
-      const fm = this.mats.textured('cpFlagTex', (ctx, s) => {
+      const flag = this.life.makeFlag(`cpFlag_${cp.id}`, (ctx, s) => {
         ctx.fillStyle = '#3A86FF';
         ctx.fillRect(0, 0, s, s);
+        ctx.fillStyle = '#74B3FF';
+        ctx.fillRect(0, s * 0.8, s, s * 0.2);
         ctx.fillStyle = '#FFD43B';
         drawStarPath(ctx, s / 2, s / 2, s * 0.3, s * 0.12);
         ctx.fill();
-      }, { size: 128, emissive: 0.45 });
-      fm.backFaceCulling = false;
-      flag.material = fm;
+      });
+      flag.parent = pole;
+      flag.position.set(0.07, 0.9, 0);
       for (const m of [stick, base, lamp, flag]) m.isPickable = false;
       this.checkpointFlags.set(cp.id, { flag, pole, lamp });
     }
@@ -731,18 +733,25 @@ export class TownEnvironment {
     arch.position.set(f.x, 5, 0.5);
     arch.material = this.mats.color('#FFD43B', { emissive: 0.4 });
     this.track(arch);
-    const banner = CreatePlane('fBanner', { width: 5, height: 1.1 }, this.scene);
-    banner.position.set(f.x, 5.6, -1.9);
-    banner.rotation.y = 0;
-    const bm = this.mats.textured('finishBanner', (ctx, s) => {
-      const cell = s / 8;
-      for (let y = 0; y < 8; y++) for (let x = 0; x < 8; x++) {
-        ctx.fillStyle = (x + y) % 2 ? '#222' : '#FFF';
+    const banner = this.life.makeStrungBanner('finishBanner', (ctx, s) => {
+      const cell = s / 16;
+      for (let y = 0; y < 4; y++) for (let x = 0; x < 16; x++) {
+        ctx.fillStyle = (x + y) % 2 ? '#2A1E3B' : '#FFFFFF';
         ctx.fillRect(x * cell, y * cell, cell, cell);
+        ctx.fillRect(x * cell, s - (y + 1) * cell, cell, cell);
       }
-    }, { size: 128, uScale: 4, emissive: 0.5 });
-    banner.material = bm;
-    this.track(banner);
+      ctx.fillStyle = '#FFD43B';
+      ctx.fillRect(0, cell * 4, s, s - cell * 8);
+      ctx.font = `700 ${Math.round(s * 0.3)}px Fredoka, "Arial Rounded MT Bold", sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.lineWidth = s * 0.03;
+      ctx.strokeStyle = '#2A1E3B';
+      ctx.strokeText('FINISH', s / 2, s / 2);
+      ctx.fillStyle = '#FF5D73';
+      ctx.fillText('FINISH', s / 2, s / 2);
+    }, 5.2, 1.5, 256);
+    banner.position.set(f.x, 6.4, -1.9);
     this.finishFlag = banner;
     for (const b of this.layout.decor.balloons) {
       const balloon = CreateSphere('balloon', { diameter: 1, segments: 12 }, this.scene);
@@ -791,7 +800,13 @@ export class TownEnvironment {
     this.bounceAnim.set(id, 0.4);
   }
 
-  update(dt: number, time: number): void {
+  update(dt: number, time: number, camX = 0): void {
+    this.life.update(dt, time, camX);
+    for (const c of this.clouds) {
+      c.node.position.y += Math.sin(time * 0.5 + c.node.position.z) * 0.004;
+      const br = 1 + Math.sin(time * 0.7 + c.node.position.x * 0.1) * 0.03;
+      c.node.scaling.y = c.node.scaling.x * br;
+    }
     for (const s of this.sways) {
       const v = Math.sin(time * s.speed + s.phase) * s.amp;
       if (s.axis === 'z') s.node.rotation.z = v;

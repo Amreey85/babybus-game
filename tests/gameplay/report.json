@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-31T14:40:29.696Z",
+  "date": "2026-10-31T15:28:02.220Z",
   "passed": 55,
   "failed": 0,
   "results": [
@@ -51,12 +51,12 @@
     {
       "name": "Keyboard: hero moves right",
       "ok": true,
-      "detail": "x 0.0 -> 4.5"
+      "detail": "x 0.0 -> 4.3"
     },
     {
       "name": "Keyboard: A moves left",
       "ok": true,
-      "detail": "4.5 -> 3.1"
+      "detail": "4.3 -> 3.1"
     },
     {
       "name": "Keyboard: Space jumps",
@@ -216,7 +216,7 @@
     {
       "name": "Little Explorer: jump helper clears crates and canal holding only Right",
       "ok": true,
-      "detail": "x=63.3 respawns=0"
+      "detail": "x=63.4 respawns=0"
     },
     {
       "name": "Little Explorer: kitten rescued automatically on touch",
@@ -246,7 +246,7 @@
     {
       "name": "Multi-touch: hold Right and tap Jump together",
       "ok": true,
-      "detail": "x 0.0 -> 5.3, y=1.29"
+      "detail": "x 0.0 -> 5.2, y=1.29"
     },
     {
       "name": "No page scrolling during play",

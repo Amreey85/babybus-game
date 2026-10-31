@@ -75,7 +75,7 @@ export class MenuScene {
       },
       finish: { x: 400, y: 0 },
     };
-    this.env = new TownEnvironment(scene, mats, layout, low);
+    this.env = new TownEnvironment(scene, mats, layout, low, { welcome: false });
 
     let shadows: ShadowGenerator | null = null;
     if (!low) {

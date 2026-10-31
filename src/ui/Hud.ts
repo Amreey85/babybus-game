@@ -96,6 +96,32 @@ export class Hud implements HudApi {
     if (collected > 0) this.starBox.classList.add('bump');
   }
 
+  flyStar(x: number, y: number, bonus = false): void {
+    const el = h('div', { class: `fly-star${bonus ? ' bonus' : ''}` }, icon('star'));
+    this.root.append(el);
+    const rect = this.starBox.getBoundingClientRect();
+    const host = this.root.getBoundingClientRect();
+    const tx = rect.left - host.left + 26;
+    const ty = rect.top - host.top + rect.height / 2;
+    const mx = (x + tx) / 2 + 40;
+    const my = Math.min(y, ty) - 90;
+    const anim = el.animate(
+      [
+        { transform: `translate(${x}px, ${y}px) translate(-50%, -50%) scale(0.6) rotate(0deg)`, opacity: 1 },
+        { transform: `translate(${x}px, ${y - 30}px) translate(-50%, -50%) scale(1.5) rotate(90deg)`, opacity: 1, offset: 0.18 },
+        { transform: `translate(${mx}px, ${my}px) translate(-50%, -50%) scale(1.15) rotate(220deg)`, opacity: 1, offset: 0.55 },
+        { transform: `translate(${tx}px, ${ty}px) translate(-50%, -50%) scale(0.7) rotate(360deg)`, opacity: 0.9 },
+      ],
+      { duration: 650, easing: 'cubic-bezier(.45,.05,.55,.95)' },
+    );
+    anim.onfinish = () => {
+      el.remove();
+      this.starBox.classList.remove('bump');
+      void this.starBox.offsetWidth;
+      this.starBox.classList.add('bump');
+    };
+  }
+
   setObjective(key: TranslationKey, ico: 'star' | 'kitten' | 'cat' | 'flag' | 'party'): void {
     this.objKey = key;
     this.objText.textContent = t(key);

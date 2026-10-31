@@ -20,6 +20,8 @@ export interface HudApi {
   fade(on: boolean): void;
   setIntro(on: boolean): void;
   badgePop(): void;
+  /** A collected star flies from a screen point into the star counter. */
+  flyStar(x: number, y: number, bonus?: boolean): void;
 }
 
 export interface StageContext {
