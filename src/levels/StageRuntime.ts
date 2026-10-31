@@ -699,7 +699,17 @@ export class StageRuntime implements StageController {
     });
     if (this.hintTarget) {
       const p = this.project(this.hintTarget.x, this.hintTarget.y + 1.2 + Math.abs(Math.sin(this.time * 5)) * 0.4, 0);
-      hud.label('hint', { ...p, visible: p.visible, kind: 'arrow' });
+      const canvas = this.scene.getEngine().getRenderingCanvas()!;
+      const cw = canvas.clientWidth;
+      const ch = canvas.clientHeight;
+      if (p.visible && p.x > 40 && p.x < cw - 40) {
+        hud.label('hint', { ...p, visible: true, kind: 'arrow' });
+      } else {
+        // Target is off screen: pin the arrow to the nearest screen edge, pointing the way to go.
+        const right = this.hintTarget.x > b.x;
+        const wob = Math.abs(Math.sin(this.time * 5)) * 14;
+        hud.label('hint', { x: right ? cw - 56 - wob : 56 + wob, y: Math.min(Math.max(ch * 0.5, 120), ch - 120), visible: true, kind: 'arrow', dir: right ? 'right' : 'left' });
+      }
     } else hud.label('hint', { x: 0, y: 0, visible: false, kind: 'arrow' });
   }
 

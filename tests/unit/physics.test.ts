@@ -52,7 +52,7 @@ describe('platformer physics', () => {
     let pTap = 0;
     let pHold = 0;
     run(tap, [floor], 1, (t) => ((pTap = Math.max(pTap, tap.y)), input({ jump: t < 0.05 })));
-    run(hold, [floor], 1, (t) => ((pHold = Math.max(pHold, hold.y)), input({ jump: true })));
+    run(hold, [floor], 1, () => ((pHold = Math.max(pHold, hold.y)), input({ jump: true })));
     expect(pTap).toBeLessThan(pHold * 0.8);
   });
 
@@ -118,6 +118,23 @@ describe('platformer physics', () => {
     const events = run(b, [floor, pad], 0.3, input());
     expect(events.some((e) => e.bounced)).toBe(true);
     expect(b.vy).toBeGreaterThan(5);
+  });
+
+  it('walking into a low bounce pad steps onto it and launches', () => {
+    const pad: Solid = { id: 'pad', x: 2, y: 0, w: 1.8, h: 0.35, bounce: 22 };
+    const b = createBody(0, 0);
+    run(b, [floor], 0.2, input());
+    let peak = 0;
+    run(b, [floor, pad], 1.5, () => { peak = Math.max(peak, b.y); return input({ right: true }); });
+    expect(peak).toBeGreaterThan(5);
+  });
+
+  it('taller crates still block walking', () => {
+    const crate: Solid = { id: 'crate', x: 2, y: 0, w: 1.6, h: 1.2 };
+    const b = createBody(0, 0);
+    run(b, [floor, crate], 2, input({ right: true }));
+    expect(b.x).toBeLessThan(2);
+    expect(b.y).toBeCloseTo(0, 3);
   });
 
   it('works when moving and jumping at the same time', () => {

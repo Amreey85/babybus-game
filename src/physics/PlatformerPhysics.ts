@@ -49,6 +49,7 @@ export interface StepEvents {
   bumpedHead: boolean;
 }
 
+const STEP_UP = 0.4;
 const EPS = 0.001;
 
 export function createBody(x: number, y: number): Body {
@@ -124,6 +125,12 @@ export function stepBody(
     const head = b.y + b.h;
     if (head <= s.y + EPS || feet >= s.y + s.h - EPS) continue;
     if (!overlapsX(b, s)) continue;
+    // Small step-up: low ledges (bounce pads, kerbs) are walked onto, not bumped into.
+    const rise = s.y + s.h - feet;
+    if (b.onGround && rise > 0 && rise <= STEP_UP) {
+      b.y = s.y + s.h;
+      continue;
+    }
     if (b.vx > 0 || (b.vx === 0 && b.x < s.x + s.w / 2)) b.x = s.x - b.w / 2;
     else b.x = s.x + s.w + b.w / 2;
     b.vx = 0;

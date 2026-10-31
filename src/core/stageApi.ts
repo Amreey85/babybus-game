@@ -14,7 +14,7 @@ export interface HudApi {
   toast(key: TranslationKey, icon: ToastIcon): void;
   caption(key: TranslationKey | null): void;
   /** World-anchored labels (speech bubbles, prompts, hint arrows). */
-  label(id: string, opts: { x: number; y: number; visible: boolean; text?: string; kind?: 'bubble' | 'prompt' | 'arrow' }): void;
+  label(id: string, opts: { x: number; y: number; visible: boolean; text?: string; kind?: 'bubble' | 'prompt' | 'arrow'; dir?: 'down' | 'left' | 'right' }): void;
   clearLabels(): void;
   setInteractHighlight(on: boolean): void;
   fade(on: boolean): void;

@@ -128,7 +128,7 @@ export class Hud implements HudApi {
     this.captionEl.style.animation = '';
   }
 
-  label(id: string, o: { x: number; y: number; visible: boolean; text?: string; kind?: 'bubble' | 'prompt' | 'arrow' }): void {
+  label(id: string, o: { x: number; y: number; visible: boolean; text?: string; kind?: 'bubble' | 'prompt' | 'arrow'; dir?: 'down' | 'left' | 'right' }): void {
     let el = this.labelEls.get(id);
     if (!o.visible) {
       if (el) el.style.display = 'none';
@@ -154,8 +154,9 @@ export class Hud implements HudApi {
       }
     } else if (kind === 'bubble' && el.textContent !== o.text) el.textContent = o.text ?? '';
     el.style.display = '';
-    const rot = kind === 'arrow' ? ' rotate(90deg)' : '';
-    el.style.transform = `translate(${o.x.toFixed(1)}px, ${o.y.toFixed(1)}px) translate(-50%, -100%)${rot}`;
+    const rot = kind !== 'arrow' ? '' : o.dir === 'right' ? '' : o.dir === 'left' ? ' rotate(180deg)' : ' rotate(90deg)';
+    const anchor = kind === 'arrow' && o.dir ? 'translate(-50%, -50%)' : 'translate(-50%, -100%)';
+    el.style.transform = `translate(${o.x.toFixed(1)}px, ${o.y.toFixed(1)}px) ${anchor}${rot}`;
   }
 
   clearLabels(): void {
