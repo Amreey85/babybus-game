@@ -32,7 +32,7 @@ import {
   roundRect,
 } from '../engine/materials';
 import type { HintDef, LevelLayout, MoverDef, PlatformDef } from '../levels/types';
-import { mergeColored } from '../engine/merge';
+import { bakeGroundAO, mergeColored } from '../engine/merge';
 import { LivingWorld } from './LivingWorld';
 
 const Z_FRONT = -3.5;
@@ -85,9 +85,11 @@ export class TownEnvironment {
   }
 
   /** Merge colour-material parts into one vertex-coloured mesh. */
-  private mergeParts(name: string, meshes: Mesh[], emissive = 0.25): Mesh {
+  private mergeParts(name: string, meshes: Mesh[], emissive = 0.25, ao = 0): Mesh {
     const parts = meshes.map((m) => ({ mesh: m, color: (m.material as StandardMaterial).diffuseColor.toHexString() }));
-    return mergeColored(name, parts, this.mats, { emissive })!;
+    const merged = mergeColored(name, parts, this.mats, { emissive })!;
+    if (ao > 0) bakeGroundAO(merged, ao);
+    return merged;
   }
 
   private track(m: Mesh, receive = false): Mesh {
@@ -365,7 +367,7 @@ export class TownEnvironment {
       chimney.material = this.mats.color('#E26D5C');
       parts.push(chimney);
     }
-    this.track(this.mergeParts('houses', parts, 0.3), true);
+    this.track(this.mergeParts('houses', parts, 0.3, 2.2), true);
   }
 
   private buildTrees(): void {
@@ -387,7 +389,7 @@ export class TownEnvironment {
           s.material = this.mats.color('#52C25A', { emissive: 0.25 });
           return s;
         });
-        const m = this.mergeParts('treeRound', [trunk, ...leaves]);
+        const m = this.mergeParts('treeRound', [trunk, ...leaves], 0.25, 2.4);
         m.setEnabled(false);
         n.dispose();
         return m;
@@ -402,7 +404,7 @@ export class TownEnvironment {
           c.material = this.mats.color('#2FA35A', { emissive: 0.25 });
           return c;
         });
-        const m = this.mergeParts('treePine', [trunk, ...tiers]);
+        const m = this.mergeParts('treePine', [trunk, ...tiers], 0.25, 2.4);
         m.setEnabled(false);
         return m;
       })(),
@@ -465,7 +467,7 @@ export class TownEnvironment {
       const berry = CreateSphere('berry', { diameter: 0.14, segments: 6 }, this.scene);
       berry.position.set(0.2, 0.75, -0.5);
       berry.material = this.mats.color('#FF4D6D', { emissive: 0.4 });
-      const m = this.mergeParts('bush', [...parts, berry]);
+      const m = this.mergeParts('bush', [...parts, berry], 0.25, 0.9);
       m.setEnabled(false);
       return m;
     })();
@@ -497,7 +499,7 @@ export class TownEnvironment {
         rail.material = this.mats.color('#F3E9DC');
         parts.push(rail);
       }
-      const m = this.mergeParts('fence', parts, 0.3);
+      const m = this.mergeParts('fence', parts, 0.3, 0.9);
       m.setEnabled(false);
       return m;
     })();
@@ -585,7 +587,7 @@ export class TownEnvironment {
         plank.material = this.mats.color('#06D6A0');
         this.sways.push({ node: plank, amp: 0.22, speed: 1.4, phase: 0, axis: 'z' });
       }
-      if (parts.length) this.track(this.mergeParts('playground', parts), true);
+      if (parts.length) this.track(this.mergeParts('playground', parts, 0.25, 1.4), true);
     }
   }
 

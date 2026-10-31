@@ -20,7 +20,7 @@ import {
 } from '../engine/babylon';
 import { Cloth } from '../engine/cloth';
 import { MaterialLibrary, particleTexture } from '../engine/materials';
-import { mergeColored } from '../engine/merge';
+import { bakeGroundAO, mergeColored } from '../engine/merge';
 import type { LevelLayout } from '../levels/types';
 
 const BUNTING = ['#FF5D73', '#FFD43B', '#4CC9F0', '#9B5DE5', '#06D6A0', '#FF8A3D'];
@@ -292,6 +292,7 @@ export class LivingWorld {
     }
     const merged = mergeColored('cottages', parts.map((m) => ({ mesh: m, color: (m.material as unknown as { diffuseColor: Color3 }).diffuseColor.toHexString() })), this.mats, { emissive: 0.32 });
     if (merged) {
+      bakeGroundAO(merged, 2.5);
       merged.isPickable = false;
       merged.freezeWorldMatrix();
     }

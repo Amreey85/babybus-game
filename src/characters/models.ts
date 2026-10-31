@@ -61,19 +61,22 @@ class Builder {
   bake(): void {
     for (const [node, parts] of this.parts) {
       const merged = mergeColored(`${node.name}_mesh`, parts, this.mats, { parent: node, emissive: 0.24 });
-      if (merged) this.meshes.push(merged);
+      if (merged) {
+        merged.material = this.mats.character();
+        this.meshes.push(merged);
+      }
     }
     this.parts.clear();
   }
 
-  ball(parent: TransformNode, colour: string, x: number, y: number, z: number, sx: number, sy = sx, sz = sx, seg = 16): Mesh {
+  ball(parent: TransformNode, colour: string, x: number, y: number, z: number, sx: number, sy = sx, sz = sx, seg = 22): Mesh {
     const m = CreateSphere(`${this.prefix}_s`, { diameter: 1, segments: seg }, this.scene);
     m.scaling.set(sx, sy, sz);
     return this.finish(m, parent, colour, x, y, z);
   }
 
   capsule(parent: TransformNode, colour: string, x: number, y: number, z: number, radius: number, height: number): Mesh {
-    const m = CreateCapsule(`${this.prefix}_c`, { radius, height, tessellation: 14, subdivisions: 2, capSubdivisions: 6 }, this.scene);
+    const m = CreateCapsule(`${this.prefix}_c`, { radius, height, tessellation: 20, subdivisions: 2, capSubdivisions: 8 }, this.scene);
     return this.finish(m, parent, colour, x, y, z);
   }
 
@@ -100,9 +103,11 @@ function buildFace(b: Builder, head: TransformNode, opts: { eyeY: number; eyeX: 
   const eyes: TransformNode[] = [];
   for (const side of [-1, 1]) {
     const eye = b.node('eye', head, side * opts.eyeX, opts.eyeY, -opts.front);
-    b.ball(eye, '#FFFFFF', 0, 0, 0, 0.17 * s, 0.21 * s, 0.08 * s);
-    b.ball(eye, '#2A1E3B', side * -0.01 * s, -0.012 * s, -0.035 * s, 0.11 * s, 0.14 * s, 0.05 * s);
-    b.ball(eye, '#FFFFFF', side * -0.035 * s, 0.03 * s, -0.06 * s, 0.04 * s);
+    b.ball(eye, '#FFFFFF', 0, 0, 0, 0.18 * s, 0.22 * s, 0.08 * s);
+    b.ball(eye, '#5B3A1E', side * -0.012 * s, -0.014 * s, -0.03 * s, 0.13 * s, 0.16 * s, 0.05 * s);
+    b.ball(eye, '#1A1226', side * -0.014 * s, -0.016 * s, -0.045 * s, 0.085 * s, 0.11 * s, 0.04 * s);
+    b.ball(eye, '#FFFFFF', side * -0.038 * s, 0.032 * s, -0.068 * s, 0.05 * s, 0.055 * s, 0.02 * s);
+    b.ball(eye, '#FFFFFF', side * 0.02 * s, -0.045 * s, -0.066 * s, 0.022 * s);
     eyes.push(eye);
     if (opts.brow) {
       const brow = b.capsule(head, opts.brow, side * opts.eyeX, opts.eyeY + 0.15 * s, -opts.front + 0.02, 0.018 * s, 0.13 * s);
@@ -153,7 +158,7 @@ export function buildHero(scene: Scene, mats: MaterialLibrary, def: HeroDef, out
   }
   // Head.
   const head = b.node('head', body, 0, 0.62, 0);
-  b.ball(head, def.fur, 0, 0.36, 0, 0.92, 0.84, 0.84, 24);
+  b.ball(head, def.fur, 0, 0.36, 0, 0.92, 0.84, 0.84, 36);
   b.ball(head, def.muzzle, 0, 0.24, -0.3, 0.5, 0.36, 0.38);
   b.ball(head, '#2A1E3B', 0, 0.33, -0.48, 0.15, 0.11, 0.11);
   b.ball(head, '#FFFFFF', -0.03, 0.36, -0.535, 0.04, 0.025, 0.02);
@@ -213,7 +218,7 @@ export function buildHero(scene: Scene, mats: MaterialLibrary, def: HeroDef, out
     for (const m of b.meshes) {
       m.renderOutline = true;
       m.outlineColor = OUTLINE;
-      m.outlineWidth = 0.012;
+      m.outlineWidth = 0.009;
     }
   }
   return { root, visual, body, head, armL: arms[0], armR: arms[1], legL: legs[0], legR: legs[1], eyes, earL: ears[0], earR: ears[1], tail, meshes: b.meshes };
@@ -325,7 +330,7 @@ export function buildCritter(scene: Scene, mats: MaterialLibrary, kind: CritterK
     for (const m of b.meshes) {
       m.renderOutline = true;
       m.outlineColor = OUTLINE;
-      m.outlineWidth = 0.012;
+      m.outlineWidth = 0.009;
     }
   }
   return { root, visual, body, head, armL: arms[0], armR: arms[1], legL: legs[0], legR: legs[1], eyes, earL: ears[0], earR: ears[1], tail, meshes: b.meshes };

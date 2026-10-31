@@ -23,6 +23,7 @@ import { buildCritter, buildHero, type Rig } from '../characters/models';
 import { DIFFICULTIES, maxJumpHeight, type DifficultyTuning, type InputState } from '../core/types';
 import type { StageContext, StageController, StageDebugState } from '../core/stageApi';
 import { Particles } from '../effects/Particles';
+import { applyLook } from '../engine/look';
 import { MaterialLibrary } from '../engine/materials';
 import { createStarMesh } from '../engine/shapes';
 import { TownEnvironment } from '../environment/TownEnvironment';
@@ -131,12 +132,8 @@ export class StageRuntime implements StageController {
     this.camera.maxZ = 700;
 
     const hemi = new HemisphericLight('hemi', new Vector3(0.2, 1, -0.3), scene);
-    hemi.intensity = 0.78;
-    hemi.groundColor = Color3.FromHexString('#B8D9A8');
-    hemi.specular = new Color3(0.2, 0.2, 0.2);
     this.sun = new DirectionalLight('sun', new Vector3(0.45, -1, 0.55), scene);
-    this.sun.intensity = 0.75;
-    this.sun.diffuse = Color3.FromHexString('#FFF4E0');
+    applyLook(scene, hemi, this.sun, low);
 
     this.mats = new MaterialLibrary(scene);
     this.env = new TownEnvironment(scene, this.mats, layout, low);
@@ -158,7 +155,7 @@ export class StageRuntime implements StageController {
       sg.bias = 0.002;
       this.shadows = sg;
       this.glow = new GlowLayer('glow', scene, { mainTextureRatio: 0.35, blurKernelSize: 24 });
-      this.glow.intensity = 0.55;
+      this.glow.intensity = 0.7;
     }
 
     // Hero.
@@ -658,18 +655,18 @@ export class StageRuntime implements StageController {
     const b = this.body;
     const { minX, maxX } = this.layout.bounds;
     if (this.phase === 'play' || this.phase === 'respawn' || this.phase === 'complete') {
-      const look = b.facing * 1.6 * Math.min(1, Math.abs(b.vx) / this.tuning.maxSpeed);
+      const look = b.facing * 2.2 * Math.min(1, Math.abs(b.vx) / this.tuning.maxSpeed);
       this.camX = damp(this.camX, b.x + look, 4.5, dt);
       // Vertical follow with a dead-zone so small hops do not bob the view.
       const targetY = b.onGround || b.y > this.camY + 2.5 || b.y < this.camY - 1.5 ? b.y : this.camY;
       this.camY = damp(this.camY, targetY, 3, dt);
     }
-    const viewHalf = 8;
+    const viewHalf = 7;
     const x = clamp(this.camX, minX + viewHalf, maxX - viewHalf);
-    const dist = 17.5 + this.camZoom;
+    const dist = 14.8 + this.camZoom;
     const y = Math.max(0, this.camY);
-    this.camera.position.set(x, y + 2.9 + this.camZoom * 0.12, -dist);
-    this.camera.setTarget(new Vector3(x, y + 2.2, 0));
+    this.camera.position.set(x, y + 2.6 + this.camZoom * 0.12, -dist);
+    this.camera.setTarget(new Vector3(x, y + 2.05, 0));
     // Keep the shadow frustum centred on the action.
     this.sun.position.set(b.x - 20, b.y + 40, -25);
   }

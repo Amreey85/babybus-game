@@ -2,6 +2,7 @@
  * Animated 3D backdrop for the title and menu screens: a corner of
  * Labrador Town with the three heroes and the kitten. Also renders hero portraits.
  */
+import { applyLook } from './look';
 import { Color3, Color4, DirectionalLight, HemisphericLight, Scene, ShadowGenerator, TargetCamera, Vector3 } from './babylon';
 import { CreateScreenshotUsingRenderTargetAsync } from '@babylonjs/core/Misc/screenshotTools';
 import { RigAnimator } from '../animations/RigAnimator';
@@ -42,11 +43,9 @@ export class MenuScene {
     this.camera.minZ = 0.3;
     this.camera.maxZ = 700;
     const hemi = new HemisphericLight('h', new Vector3(0.2, 1, -0.3), scene);
-    hemi.intensity = 0.8;
-    hemi.groundColor = Color3.FromHexString('#B8D9A8');
     const sun = new DirectionalLight('s', new Vector3(0.45, -1, 0.55), scene);
     sun.position.set(-10, 30, -20);
-    sun.intensity = 0.7;
+    applyLook(scene, hemi, sun, low);
     const mats = new MaterialLibrary(scene);
 
     const full = buildStage1Layout('junior');

@@ -1,4 +1,5 @@
 /** Shared materials and procedural textures. Reused to keep draw state small. */
+import { FresnelParameters } from '@babylonjs/core/Materials/fresnelParameters';
 import { Color3, DynamicTexture, Scene, StandardMaterial, Texture } from './babylon';
 
 export class MaterialLibrary {
@@ -54,6 +55,29 @@ export class MaterialLibrary {
     m.emissiveColor = new Color3(emissive, emissive, emissive);
     m.specularColor = new Color3(0.12, 0.12, 0.12);
     m.specularPower = 32;
+    this.cache.set(key, m);
+    return m;
+  }
+
+  /**
+   * Glossy "vinyl toy" material for characters: soft specular sheen plus a
+   * fresnel rim light so silhouettes glow against the background.
+   */
+  character(): StandardMaterial {
+    const key = 'character';
+    let m = this.cache.get(key);
+    if (m) return m;
+    m = new StandardMaterial('characterMat', this.scene);
+    m.diffuseColor = new Color3(1, 1, 1);
+    m.emissiveColor = new Color3(0.2, 0.2, 0.2);
+    m.specularColor = new Color3(0.42, 0.4, 0.38);
+    m.specularPower = 42;
+    const rim = new FresnelParameters();
+    rim.leftColor = new Color3(0.55, 0.52, 0.48);
+    rim.rightColor = new Color3(0, 0, 0);
+    rim.power = 2.6;
+    rim.bias = 0.06;
+    m.emissiveFresnelParameters = rim;
     this.cache.set(key, m);
     return m;
   }

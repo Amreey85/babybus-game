@@ -48,3 +48,27 @@ export function mergeColored(
   if (opts.parent) merged.parent = opts.parent;
   return merged;
 }
+
+/**
+ * Fake ambient occlusion: darken vertex colours near the ground (y = 0) and
+ * add a faint warm sky tint at the top, so props sit into the scene.
+ */
+export function bakeGroundAO(mesh: Mesh, fadeHeight = 1.6, strength = 0.32): void {
+  const pos = mesh.getVerticesData(VertexBuffer.PositionKind);
+  const col = mesh.getVerticesData(VertexBuffer.ColorKind);
+  if (!pos || !col) return;
+  const wm = mesh.computeWorldMatrix(true);
+  const m = wm.m;
+  const out = new Float32Array(col.length);
+  for (let i = 0, v = 0; i < pos.length; i += 3, v += 4) {
+    const y = pos[i] * m[1] + pos[i + 1] * m[5] + pos[i + 2] * m[9] + m[13];
+    const k = Math.min(1, Math.max(0, y / fadeHeight));
+    const shade = 1 - strength * (1 - k) * (1 - k);
+    const top = Math.min(1, Math.max(0, (y - 3) / 6)) * 0.06;
+    out[v] = Math.min(1, col[v] * shade + top);
+    out[v + 1] = Math.min(1, col[v + 1] * shade + top * 0.9);
+    out[v + 2] = Math.min(1, col[v + 2] * shade + top * 0.7);
+    out[v + 3] = col[v + 3];
+  }
+  mesh.setVerticesData(VertexBuffer.ColorKind, out, false, 4);
+}
