@@ -1,7 +1,7 @@
 {
-  "date": "2026-10-31T14:23:35.052Z",
-  "passed": 14,
-  "failed": 14,
+  "date": "2026-10-31T14:40:29.696Z",
+  "passed": 55,
+  "failed": 0,
   "results": [
     {
       "name": "Title screen loads with Play button",
@@ -50,18 +50,18 @@
     },
     {
       "name": "Keyboard: hero moves right",
-      "ok": false,
-      "detail": "x 0.0 -> 0.9"
+      "ok": true,
+      "detail": "x 0.0 -> 4.5"
     },
     {
       "name": "Keyboard: A moves left",
-      "ok": false,
-      "detail": "0.9 -> 1.3"
+      "ok": true,
+      "detail": "4.5 -> 3.1"
     },
     {
       "name": "Keyboard: Space jumps",
-      "ok": false,
-      "detail": "y=0.00"
+      "ok": true,
+      "detail": "peak y=2.21"
     },
     {
       "name": "Lands back on ground",
@@ -70,42 +70,47 @@
     },
     {
       "name": "First three stars collected",
-      "ok": false,
-      "detail": "1/28"
+      "ok": true,
+      "detail": "3/28"
     },
     {
       "name": "Move + jump together clears the crate",
-      "ok": false,
-      "detail": "x=39.0"
+      "ok": true,
+      "detail": "x=47.6"
     },
     {
       "name": "Falling in the canal respawns safely (no game over)",
-      "ok": false,
-      "detail": "x=59.5 respawns=1"
+      "ok": true,
+      "detail": "x=0.0 respawns=1"
     },
     {
       "name": "Checkpoint activates",
-      "ok": false,
+      "ok": true,
       "detail": ""
     },
     {
       "name": "Respawn returns to the checkpoint",
-      "ok": false,
-      "detail": "x=104.0"
+      "ok": true,
+      "detail": "x=78.0"
+    },
+    {
+      "name": "Help prompt appears near the kitten",
+      "ok": true,
+      "detail": ""
     },
     {
       "name": "Interact (E) rescues the kitten",
-      "ok": false,
-      "detail": "waiting"
+      "ok": true,
+      "detail": "following"
     },
     {
       "name": "Kitten reunited with Mama Cat (badge)",
-      "ok": false,
+      "ok": true,
       "detail": ""
     },
     {
       "name": "Hint button shows a pointer arrow",
-      "ok": false,
+      "ok": true,
       "detail": ""
     },
     {
@@ -125,18 +130,148 @@
     },
     {
       "name": "Stage completion screen appears",
-      "ok": false,
+      "ok": true,
       "detail": ""
     },
     {
       "name": "Rescue badge shown on completion",
-      "ok": false,
+      "ok": true,
       "detail": ""
     },
     {
-      "name": "Test run completed without exceptions",
-      "ok": false,
-      "detail": "locator.isDisabled: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByTestId('next-stage')\u001b[22m\n\n    at /home/claude/babybus-game/tests/gameplay/run-gameplay.mjs:217:80"
+      "name": "Next stage clearly unavailable",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Progress saved to localStorage",
+      "ok": true,
+      "detail": "{\"completed\":true,\"bestStars\":3,\"totalStars\":28,\"bestBonusStars\":0,\"rating\":1,\"rescued\":true,\"completions\":1}"
+    },
+    {
+      "name": "Rescue badge and medal saved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Save is in browser storage",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Replay restarts Stage 1 from the beginning",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Quit asks for confirmation with a no-resume warning",
+      "ok": true,
+      "detail": "Quit the game? Your adventure can't be continued. Next time you will start again from Stage 1. Keep playing Quit"
+    },
+    {
+      "name": "Keep playing returns to the game",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Quit returns to title and discards the run",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Stage 2 marked unlocked but coming soon",
+      "ok": true,
+      "detail": "2 The Missing Kitten Unlocked! Coming soon"
+    },
+    {
+      "name": "Stage 3 locked",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Rewards screen shows the badge unlocked",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Music and sound volumes saved independently",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Language saved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "After refresh: Continue shown and progress kept",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "After refresh: language kept (BM)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Little Explorer: jump helper clears crates and canal holding only Right",
+      "ok": true,
+      "detail": "x=63.3 respawns=0"
+    },
+    {
+      "name": "Little Explorer: kitten rescued automatically on touch",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Super Sheriff loads with the same 28 main stars",
+      "ok": true,
+      "detail": "28"
+    },
+    {
+      "name": "Super Sheriff: hidden bonus star collectable",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Bounce pad launches the hero high",
+      "ok": true,
+      "detail": "peak y=5.7"
+    },
+    {
+      "name": "Touch controls visible on a phone",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Multi-touch: hold Right and tap Jump together",
+      "ok": true,
+      "detail": "x 0.0 -> 5.3, y=1.29"
+    },
+    {
+      "name": "No page scrolling during play",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Portrait phone shows \"turn your device\" message",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Portrait rotation pauses the game",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Tablet layout has no horizontal overflow",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Switching tabs pauses the game automatically",
+      "ok": true,
+      "detail": ""
     },
     {
       "name": "No JavaScript errors in the browser console",
