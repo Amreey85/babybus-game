@@ -1,0 +1,26 @@
+{
+  "name": "sheriff-labrador-super-rescue",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Sheriff Labrador: Super Rescue Adventure - a 2.5D browser platformer for children aged 4-10 (private prototype, original characters).",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --port 4173 --strictPort",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:gameplay": "node tests/gameplay/run-gameplay.mjs",
+    "check": "npm run typecheck && npm run test && npm run build"
+  },
+  "dependencies": {
+    "@babylonjs/core": "8.56.2"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "vite": "6.4.5",
+    "vitest": "3.2.7",
+    "jsdom": "25.0.1"
+  }
+}

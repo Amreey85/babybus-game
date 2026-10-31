@@ -1,0 +1,282 @@
+{
+  "date": "2026-10-31T17:40:20.999Z",
+  "passed": 55,
+  "failed": 0,
+  "results": [
+    {
+      "name": "Title screen loads with Play button",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Language switches to Bahasa Melayu",
+      "ok": true,
+      "detail": "Main"
+    },
+    {
+      "name": "Language switches back to English",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Hero select shows three heroes",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Difficulty select shows three modes",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Stage 1 loads and intro starts",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Intro caption shown",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Intro can be skipped",
+      "ok": true,
+      "detail": "play"
+    },
+    {
+      "name": "Hero selection carried into stage (save)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Keyboard: hero moves right",
+      "ok": true,
+      "detail": "x 0.0 -> 4.2"
+    },
+    {
+      "name": "Keyboard: A moves left",
+      "ok": true,
+      "detail": "4.2 -> 3.2"
+    },
+    {
+      "name": "Keyboard: Space jumps",
+      "ok": true,
+      "detail": "peak y=1.72"
+    },
+    {
+      "name": "Lands back on ground",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "First three stars collected",
+      "ok": true,
+      "detail": "3/28"
+    },
+    {
+      "name": "Move + jump together clears the crate",
+      "ok": true,
+      "detail": "x=47.6"
+    },
+    {
+      "name": "Falling in the canal respawns safely (no game over)",
+      "ok": true,
+      "detail": "x=0.0 respawns=1"
+    },
+    {
+      "name": "Checkpoint activates",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Respawn returns to the checkpoint",
+      "ok": true,
+      "detail": "x=78.0"
+    },
+    {
+      "name": "Help prompt appears near the kitten",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Interact (E) rescues the kitten",
+      "ok": true,
+      "detail": "following"
+    },
+    {
+      "name": "Kitten reunited with Mama Cat (badge)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Hint button shows a pointer arrow",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Esc opens pause menu",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Game is frozen while paused",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Resume closes pause menu",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Stage completion screen appears",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Rescue badge shown on completion",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Next stage clearly unavailable",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Progress saved to localStorage",
+      "ok": true,
+      "detail": "{\"completed\":true,\"bestStars\":3,\"totalStars\":28,\"bestBonusStars\":0,\"rating\":1,\"rescued\":true,\"completions\":1}"
+    },
+    {
+      "name": "Rescue badge and medal saved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Save is in browser storage",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Replay restarts Stage 1 from the beginning",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Quit asks for confirmation with a no-resume warning",
+      "ok": true,
+      "detail": "Quit the game? Your adventure can't be continued. Next time you will start again from Stage 1. Keep playing Quit"
+    },
+    {
+      "name": "Keep playing returns to the game",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Quit returns to title and discards the run",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Stage 2 marked unlocked but coming soon",
+      "ok": true,
+      "detail": "2 The Missing Kitten Unlocked! Coming soon"
+    },
+    {
+      "name": "Stage 3 locked",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Rewards screen shows the badge unlocked",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Music and sound volumes saved independently",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Language saved",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "After refresh: Continue shown and progress kept",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "After refresh: language kept (BM)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Little Explorer: jump helper clears crates and canal holding only Right",
+      "ok": true,
+      "detail": "x=63.4 respawns=0"
+    },
+    {
+      "name": "Little Explorer: kitten rescued automatically on touch",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Super Sheriff loads with the same 28 main stars",
+      "ok": true,
+      "detail": "28"
+    },
+    {
+      "name": "Super Sheriff: hidden bonus star collectable",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Bounce pad launches the hero high",
+      "ok": true,
+      "detail": "peak y=5.7"
+    },
+    {
+      "name": "Touch controls visible on a phone",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Multi-touch: hold Right and tap Jump together",
+      "ok": true,
+      "detail": "x 0.0 -> 5.1, y=1.29"
+    },
+    {
+      "name": "No page scrolling during play",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Portrait phone shows \"turn your device\" message",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Portrait rotation pauses the game",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Tablet layout has no horizontal overflow",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Switching tabs pauses the game automatically",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "No JavaScript errors in the browser console",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}
