@@ -744,7 +744,7 @@ export class TownEnvironment {
       }
       ctx.fillStyle = '#FFD43B';
       ctx.fillRect(0, cell * 4, s, s - cell * 8);
-      ctx.font = `700 ${Math.round(s * 0.3)}px Fredoka, "Arial Rounded MT Bold", sans-serif`;
+      ctx.font = `${Math.round(s * 0.3)}px "Titan One", "Baloo 2", "Arial Rounded MT Bold", sans-serif`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.lineWidth = s * 0.03;

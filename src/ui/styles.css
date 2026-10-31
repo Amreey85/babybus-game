@@ -15,7 +15,7 @@
   --safe-r: env(safe-area-inset-right, 0px);
   --safe-t: env(safe-area-inset-top, 0px);
   --safe-b: env(safe-area-inset-bottom, 0px);
-  font-family: 'Fredoka', 'Baloo 2', 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-family: 'Baloo 2', 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
   color: var(--ink);
 }
 
@@ -302,4 +302,10 @@ body.touch-mode .touch.active { display: block; }
 .fly-star.bonus { color: #7cf4ff; filter: drop-shadow(0 3px 0 #3a86ff) drop-shadow(0 0 12px rgba(124,244,255,0.9)); }
 @media (prefers-reduced-motion: reduce) {
   .logo h1 .ltr, .btn.primary.big, .logo, .screen, .screen .menu-row > * { animation: none !important; }
+}
+
+/* ---------- Display type: chunky rounded cartoon lettering ---------- */
+.logo h1, .screen h2, .btn, .logo .subtitle, .star-counter, .objective, .toast, .total-pill, .modal h2, .complete-card h2 {
+  font-family: 'Titan One', 'Baloo 2', 'Arial Rounded MT Bold', system-ui, sans-serif;
+  font-weight: 400; letter-spacing: 0.01em;
 }

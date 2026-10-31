@@ -111,7 +111,7 @@ export class LivingWorld {
         ctx.fill();
       }
       const word = 'LABRADOR TOWN';
-      ctx.font = `700 ${Math.round(h * 0.42)}px Fredoka, "Arial Rounded MT Bold", sans-serif`;
+      ctx.font = `${Math.round(h * 0.42)}px "Titan One", "Baloo 2", "Arial Rounded MT Bold", sans-serif`;
       ctx.textBaseline = 'middle';
       const total = ctx.measureText(word).width;
       const scale = Math.min(1, (w * 0.92) / total);

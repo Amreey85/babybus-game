@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-31T17:11:38.868Z",
+  "date": "2026-10-31T17:40:20.999Z",
   "passed": 55,
   "failed": 0,
   "results": [
@@ -51,17 +51,17 @@
     {
       "name": "Keyboard: hero moves right",
       "ok": true,
-      "detail": "x 0.0 -> 4.3"
+      "detail": "x 0.0 -> 4.2"
     },
     {
       "name": "Keyboard: A moves left",
       "ok": true,
-      "detail": "4.3 -> 3.2"
+      "detail": "4.2 -> 3.2"
     },
     {
       "name": "Keyboard: Space jumps",
       "ok": true,
-      "detail": "peak y=2.21"
+      "detail": "peak y=1.72"
     },
     {
       "name": "Lands back on ground",
@@ -146,7 +146,7 @@
     {
       "name": "Progress saved to localStorage",
       "ok": true,
-      "detail": "{\"completed\":true,\"bestStars\":4,\"totalStars\":28,\"bestBonusStars\":0,\"rating\":1,\"rescued\":true,\"completions\":1}"
+      "detail": "{\"completed\":true,\"bestStars\":3,\"totalStars\":28,\"bestBonusStars\":0,\"rating\":1,\"rescued\":true,\"completions\":1}"
     },
     {
       "name": "Rescue badge and medal saved",
@@ -246,7 +246,7 @@
     {
       "name": "Multi-touch: hold Right and tap Jump together",
       "ok": true,
-      "detail": "x 0.0 -> 3.8, y=1.29"
+      "detail": "x 0.0 -> 5.1, y=1.29"
     },
     {
       "name": "No page scrolling during play",

@@ -195,7 +195,9 @@ export class App {
     this.go('loading');
     this.menuScene?.cheer();
     this.audio.playMusic(null);
-    const mod = await info.load();
+    // Banner textures are painted with the display font, so make sure it is ready (max 1.5 s).
+    const fontReady = document.fonts?.load('48px "Titan One"').catch(() => undefined) ?? Promise.resolve();
+    const [mod] = await Promise.all([info.load(), Promise.race([fontReady, new Promise((r) => setTimeout(r, 1500))])]);
     await new Promise((r) => setTimeout(r, 60));
     this.disposeStage();
     this.menuScene?.dispose();
