@@ -1,0 +1,147 @@
+{
+  "date": "2026-10-31T14:23:35.052Z",
+  "passed": 14,
+  "failed": 14,
+  "results": [
+    {
+      "name": "Title screen loads with Play button",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Language switches to Bahasa Melayu",
+      "ok": true,
+      "detail": "Main"
+    },
+    {
+      "name": "Language switches back to English",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Hero select shows three heroes",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Difficulty select shows three modes",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Stage 1 loads and intro starts",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Intro caption shown",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Intro can be skipped",
+      "ok": true,
+      "detail": "play"
+    },
+    {
+      "name": "Hero selection carried into stage (save)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Keyboard: hero moves right",
+      "ok": false,
+      "detail": "x 0.0 -> 0.9"
+    },
+    {
+      "name": "Keyboard: A moves left",
+      "ok": false,
+      "detail": "0.9 -> 1.3"
+    },
+    {
+      "name": "Keyboard: Space jumps",
+      "ok": false,
+      "detail": "y=0.00"
+    },
+    {
+      "name": "Lands back on ground",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "First three stars collected",
+      "ok": false,
+      "detail": "1/28"
+    },
+    {
+      "name": "Move + jump together clears the crate",
+      "ok": false,
+      "detail": "x=39.0"
+    },
+    {
+      "name": "Falling in the canal respawns safely (no game over)",
+      "ok": false,
+      "detail": "x=59.5 respawns=1"
+    },
+    {
+      "name": "Checkpoint activates",
+      "ok": false,
+      "detail": ""
+    },
+    {
+      "name": "Respawn returns to the checkpoint",
+      "ok": false,
+      "detail": "x=104.0"
+    },
+    {
+      "name": "Interact (E) rescues the kitten",
+      "ok": false,
+      "detail": "waiting"
+    },
+    {
+      "name": "Kitten reunited with Mama Cat (badge)",
+      "ok": false,
+      "detail": ""
+    },
+    {
+      "name": "Hint button shows a pointer arrow",
+      "ok": false,
+      "detail": ""
+    },
+    {
+      "name": "Esc opens pause menu",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Game is frozen while paused",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Resume closes pause menu",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Stage completion screen appears",
+      "ok": false,
+      "detail": ""
+    },
+    {
+      "name": "Rescue badge shown on completion",
+      "ok": false,
+      "detail": ""
+    },
+    {
+      "name": "Test run completed without exceptions",
+      "ok": false,
+      "detail": "locator.isDisabled: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByTestId('next-stage')\u001b[22m\n\n    at /home/claude/babybus-game/tests/gameplay/run-gameplay.mjs:217:80"
+    },
+    {
+      "name": "No JavaScript errors in the browser console",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}
